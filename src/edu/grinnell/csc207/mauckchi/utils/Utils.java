@@ -16,7 +16,6 @@ public class Utils
         a = ((d.divide(a, 10, RoundingMode.CEILING).add(a)).divide(two));
       } // while
     return a;
-
   } // sqrt(BigDecimal, BigDecmial)
 
   /*
@@ -27,7 +26,7 @@ public class Utils
    * https://github.com/wolterzo/csc207-hw5/blob/master/src/edu
    * /grinnell/csc207/aza/utils/Utils.java
    */
-  
+
   public static int expt(int x, int n)
   {
     // initializing result to the base
@@ -56,7 +55,7 @@ public class Utils
             result *= result;
             tempExponent *= 2;
           } // if
-        
+
         // if difference between n and tempExponent is odd or 
         // 2 * tempExponent > n, multiply current result by 
         // x and store back in result. Increment tempExponent
@@ -71,16 +70,8 @@ public class Utils
   } // expt (int, int)
 
   public static void main(String[] args)
-  {
-   // BigDecimal sixteen = new BigDecimal(3300);
-   // BigDecimal c = new BigDecimal(.01);
-   // BigDecimal root = sqrt(sixteen, c);
-   // System.out.println("root " + root);
-    
-    int exp = expt(7,0);
-    System.out.println(exp);
-  }
-  
+  { }
+
   public static String[] splitAt(String str, char c)
   {
     String[] tempArr = new String[str.length()];
@@ -113,6 +104,5 @@ public class Utils
       } // for
     return resultArr;
   } // splitAt();
-
 
 } // class Utils

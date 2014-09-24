@@ -1,51 +1,58 @@
-// REMEMBER TO MAKE A PROPER THROWS EXCEPTION!!!!!
-// HERE AND IN UI CLASS!!!!!!!!!!!!!!!!!!!!!!!!!!!
 package edu.grinnell.csc207.mauckchi.utils;
-
-import java.io.PrintWriter;
 
 public class Calculator
 {
-  
-  String[] storage = new String[8];
-  
-  public Calculator() {}
-  
-  public Fraction evaluate(String expression)
-      throws Exception
+  // Create r0 - r7 storage Fields
+  String[] storage = { "0", "0", "0", "0", "0", "0", "0", "0" };
+
+  // Construct calculator
+  public Calculator()
   {
-    //System.out.println(expression);
-    if (expression.charAt(0) == 'r' &&
-        expression.charAt(3) == '=')
-      {
-      char charNum = expression.charAt(1);
-      int num = Character.getNumericValue(charNum);
-      Fraction result = eval1(expression.substring(5));
-      this.storage[num] = result.toString();
-      //System.out.println("found r " + num);
-      return result;
-      }
-    else
-      {
-        return eval1(expression);
-      }
   }
-  
+
+  /** Evaluate the given whole expression */
+  public Fraction evaluate(String expression)
+    throws Exception
+  {
+    // check if expression is setting specified r storage option
+    if (expression.charAt(0) == 'r' && expression.length() > 2 && expression.charAt(3) == '=')
+      {
+        // find index of storage
+        char charNum = expression.charAt(1);
+        int num = Character.getNumericValue(charNum);
+        // evaluate the sub-expression to be set
+        Fraction result = eval1(expression.substring(5));
+        // set the storage to the given expression's value
+        this.storage[num] = result.toString();
+        //System.out.println("found r " + num);
+        return result;
+      } // if setting r storage
+     // simply return evaluated expression
+     return eval1(expression);
+  } // evaluate(String)
+
+  /** Evaluate the given expression (of the naive format) */
   public Fraction eval1(String str)
+    throws Exception
   {
     // Create array of values (removing spaces)
     String[] arr = Utils.splitAt(str, ' ');
     // Go through array and replace storage values with fractions
     for (int i = 0; i < arr.length; i++)
       {
+        // check for r
         if (arr[i].charAt(0) == 'r')
           {
-          char charNum = arr[i].charAt(1);
-          int num = Character.getNumericValue(charNum);
-          String val = this.storage[num];
-          arr[i] = val;
-          }
-      }
+            // check for storage index
+            String Num = arr[i].substring(1);
+            int num = Integer.parseInt(Num);
+            // find storage value
+            String val = this.storage[num];
+            // replace array value with storage value
+            arr[i] = val;
+          } // if r
+      } // for loop through array
+    // grab the first array value
     Fraction value1 = new Fraction(arr[0]);
     Fraction value2;
     // Checks for a single element array
@@ -72,7 +79,6 @@ public class Calculator
               i += 2;
               break;
             case "-":
-              String temp = arr[i + 1];
               value2 = new Fraction(arr[i + 1]);
               value1 = value1.subtract(value2);
               i += 2;
@@ -98,19 +104,5 @@ public class Calculator
           } // switch
       } // for 
     return value1.simplify();
-  } // eval1
-  
-  /*public static void main(String[] args)
-      throws Exception
-  { 
-    PrintWriter pen = new PrintWriter(System.out, true);
-    Calculator calc1 = new Calculator();
-    pen.println("simple " + calc1.evaluate("1 + 2"));
-    pen.println("r0 " + calc1.evaluate("r0 = 1"));
-    pen.println("r1 " + calc1.evaluate("r1 = 9 ^ 2"));
-    pen.println("r2 " + calc1.evaluate("r2 = 5/3 * 2"));
-    pen.println("r3 " + calc1.evaluate("r3 = 3 - r1"));
-    pen.println("r4 " + calc1.evaluate("r2 - r1"));
-    pen.close();
-  }*/
-}
+  } // eval1(String)
+} // Calculator class

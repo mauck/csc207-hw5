@@ -82,7 +82,7 @@ public class Fraction
             this.num = this.num.negate();
           } // if str[0] = '-'
         else
-          {
+          { 
             this.num = BigInteger.valueOf(Integer.parseInt(str));
           } // else
         this.denom = BigInteger.valueOf(1);
@@ -264,7 +264,9 @@ public class Fraction
   * Return a fraction that is the given fraction simplified.
   */
   public Fraction simplify()
+    throws IllegalArgumentException
   {
+
     BigInteger resultNumerator;
     BigInteger resultDenominator;
     // get the gcd (greatest common divisor)
@@ -278,6 +280,12 @@ public class Fraction
     if (resultNumerator == BigInteger.valueOf(0))
       {
         resultDenominator = BigInteger.valueOf(1);
+      } // if
+
+    // if denom is 0, exception should be thrown
+    if (resultDenominator == BigInteger.valueOf(0))
+      {
+        throw new IllegalArgumentException("Can't divide by zero!");
       } // if
 
     // if denom is < 0, negate num and denom
