@@ -68,6 +68,21 @@ public class Utils
       } // while
     return result;
   } // expt (int, int)
+  
+  
+  /*
+   * Computes x^n
+   * This may be more efficient than the expt method above.
+   */
+  public static double newExpt(double x, int n)
+  {
+    double result = Math.exp(n*Math.log(Math.abs(x)));
+    if ((x < 0) && ((n % 2) == 1))
+      {
+        return -1 * result;
+      }
+    return result;
+  } // newExpt(double, int)
 
   public static void main(String[] args)
   { }
