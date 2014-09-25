@@ -80,7 +80,7 @@ public class Utils
     if ((x < 0) && ((n % 2) == 1))
       {
         return -1 * result;
-      }
+      } // if
     return result;
   } // newExpt(double, int)
 
